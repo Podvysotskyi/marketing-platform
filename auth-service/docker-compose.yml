@@ -1,0 +1,38 @@
+version: '3'
+services:
+    php:
+        build: ./docker/php
+        image: auth-service-php
+        volumes:
+            - ./:/app
+    app:
+        image: auth-service-php
+        depends_on:
+            - php
+            - pgsql
+        restart: on-failure
+        volumes:
+            - ./:/app
+        ports:
+            - '8000:8000'
+        healthcheck:
+            test: ["CMD", "curl", "-f", "http://app:8000/status"]
+            retries: 3
+            timeout: 3s
+        entrypoint: ['php', 'artisan', 'serve', '--host=0.0.0.0', '--port=8000']
+    pgsql:
+        image: postgres:15
+        restart: on-failure
+        environment:
+            PGPASSWORD: 'secret'
+            POSTGRES_DB: '${DB_DATABASE}'
+            POSTGRES_USER: '${DB_USERNAME}'
+            POSTGRES_PASSWORD: '${DB_PASSWORD}'
+        volumes:
+            - 'pgsql-data:/var/lib/postgresql/data'
+        healthcheck:
+            test: [ "CMD", "pg_isready", "-q", "-d", "${DB_DATABASE}", "-U", "${DB_USERNAME}" ]
+            retries: 3
+            timeout: 5s
+volumes:
+    pgsql-data:

@@ -1,0 +1,9 @@
+/.phpunit.cache
+/public/vendor
+/storage/*.key
+/resources/views/scribe
+/vendor
+.env
+.phpunit.result.cache
+/.idea
+/.scribe
