@@ -5,6 +5,7 @@ services:
         image: auth-service-php
         volumes:
             - ./:/app
+        entrypoint: ['tail', '-f', '/dev/null']
     app:
         image: auth-service-php
         depends_on:
