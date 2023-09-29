@@ -17,8 +17,8 @@ services:
             - '8000:8000'
         healthcheck:
             test: ["CMD", "curl", "-f", "http://app:8000/status"]
-            retries: 3
-            timeout: 3s
+            retries: 6
+            timeout: 5s
         entrypoint: ['php', 'artisan', 'serve', '--host=0.0.0.0', '--port=8000']
     pgsql:
         image: postgres:15
@@ -32,7 +32,7 @@ services:
             - 'pgsql-data:/var/lib/postgresql/data'
         healthcheck:
             test: [ "CMD", "pg_isready", "-q", "-d", "${DB_DATABASE}", "-U", "${DB_USERNAME}" ]
-            retries: 3
+            retries: 6
             timeout: 5s
 volumes:
     pgsql-data:

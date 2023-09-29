@@ -1,5 +1,7 @@
 /.phpunit.cache
 /public/vendor
+/public/docs
+/public/storage
 /storage/*.key
 /resources/views/scribe
 /vendor

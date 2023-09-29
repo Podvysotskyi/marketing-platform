@@ -17,7 +17,8 @@ return [
     'description' => '',
 
     /*
-     * The base URL displayed in the docs. If this is empty, Scribe will use the value of config('app.url').
+     * The base URL displayed in the docs. If this is empty, Scribe will use the value of config('app.url') at generation time.
+     * If you're using `laravel`` type, you can set this to a dynamic string, like '{{ config("app.tenant_url") }}' to get a dynamic base URL.
      */
     'base_url' => null,
 
@@ -138,7 +139,7 @@ return [
      * - "static" will generate a static HTMl page in the /public/docs folder,
      * - "laravel" will generate the documentation as a Blade view, so you can add routing and authentication.
      */
-    'type' => 'laravel',
+    'type' => 'static',
 
     /*
      * Settings for `static` type output.
@@ -148,7 +149,7 @@ return [
          * HTML documentation, assets and Postman collection will be generated to this folder.
          * Source Markdown will still be in resources/docs.
          */
-        'output_path' => 'storage/app/docs',
+        'output_path' => 'public/docs',
     ],
 
     /*
@@ -189,7 +190,7 @@ return [
 
         /**
          * The base URL for the API tester to use (for example, you can set this to your staging URL).
-         * Leave as null to use the current app URL (config(app.url)).
+         * Leave as null to use the current app URL when generating (config("app.url")).
          */
         'base_url' => null,
 

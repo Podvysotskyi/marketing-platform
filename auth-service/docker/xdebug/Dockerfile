@@ -56,12 +56,6 @@ ADD ../php/php.ini $PHP_INI_DIR/conf.d/
 ADD error_reporting.ini $PHP_INI_DIR/conf.d/
 ADD xdebug.ini $PHP_INI_DIR/conf.d/
 
-COPY app_entrypoint.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/app_entrypoint.sh
-RUN ln -s /usr/local/bin/app_entrypoint.sh /
-
-ENTRYPOINT ["entrypoint.sh"]
-
 RUN usermod -u ${HOST_UID} www-data
 RUN groupmod -g ${HOST_UID} www-data
 
@@ -69,5 +63,3 @@ RUN chmod -R 755 $WORKDIR
 RUN chown -R www-data:www-data $WORKDIR
 
 EXPOSE 9000
-
-CMD [ "entrypoint" ]
